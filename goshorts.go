@@ -12,7 +12,7 @@ func ThrowError(err error, caller string) {
 
 func ErrCheck(err error) {
 	if err != nil {
-		throwError(err, MyCaller())
+		ThrowError(err, MyCaller())
 	}
 }
 
