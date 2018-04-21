@@ -5,9 +5,16 @@ import (
 	"runtime"
 )
 
+var (
+	ExitOnErr = true
+)
+
 func ThrowError(err error, caller string) {
 	fmt.Println("We've encountered an unrecoverable issue. Please review the documentation and try again")
 	fmt.Println("Function: " + caller + " failed with error: " + err.Error())
+	if (ExitOnErr) {
+		os.Exit(1)
+	}
 }
 
 func ErrCheck(err error) {
