@@ -3,6 +3,7 @@ package goshorts
 import (
 	"fmt"
 	"runtime"
+	"os"
 )
 
 var (
