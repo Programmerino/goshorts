@@ -5,12 +5,12 @@ import (
 	"runtime"
 )
 
-func throwError(err error, caller string) {
+func ThrowError(err error, caller string) {
 	fmt.Println("We've encountered an unrecoverable issue. Please review the documentation and try again")
 	fmt.Println("Function: " + caller + " failed with error: " + err.Error())
 }
 
-func errCheck(err error) {
+func ErrCheck(err error) {
 	if err != nil {
 		throwError(err, MyCaller())
 	}
