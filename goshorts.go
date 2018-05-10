@@ -1,37 +1,37 @@
 package goshorts
 
 import (
-	"fmt"
-	"runtime"
+	"log"
 	"os"
+	"runtime"
 )
 
 var (
 	ExitOnErr = true
 )
 
-func ThrowError(err error, caller string) {
-	fmt.Println("We've encountered an unrecoverable issue. Please review the documentation and try again")
-	fmt.Println("Function: " + caller + " failed with error: " + err.Error())
-	if (ExitOnErr) {
+func ThrowError(err error) {
+	_, _, line, _ := runtime.Caller(2)
+	log.Println("We've encountered an unrecoverable issue. Please review the documentation and try again")
+	log.Fatalf("Function: %s at line %v failed with error: %s", getCaller(), line, err.Error())
+	if ExitOnErr {
 		os.Exit(1)
 	}
 }
 
 func ErrCheck(err error) {
 	if err != nil {
-		ThrowError(err, MyCaller())
+		ThrowError(err)
 	}
 }
 
-// MyCaller returns the caller of the function that called it :)
-func MyCaller() string {
+func getCaller() string {
 
 	// we get the callers as uintptrs - but we just need 1
 	fpcs := make([]uintptr, 1)
 
 	// skip 3 levels to get to the caller of whoever called Caller()
-	n := runtime.Callers(3, fpcs)
+	n := runtime.Callers(4, fpcs)
 	if n == 0 {
 		return "n/a" // proper error her would be better
 	}
